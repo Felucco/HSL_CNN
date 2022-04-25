@@ -1,0 +1,12 @@
+#ifndef __F24T
+#define __F24T
+
+
+#include <ap_fixed.h>
+
+#define FLOAT_WIDTH		24
+#define INT_WIDTH	4
+
+typedef ap_fixed<FLOAT_WIDTH, INT_WIDTH> float24_t;
+
+#endif
