@@ -15,7 +15,7 @@ REF_FOLDER = "refs"
 BATCH_SIZE = 128
 EPOCHS = 20
 LR = 0.009
-TRAIN = False
+TRAIN = True
 
 
 def build_model(in_shape: np.ndarray) -> Sequential:
@@ -23,12 +23,12 @@ def build_model(in_shape: np.ndarray) -> Sequential:
 
     model.add(ZeroPadding2D(padding=2, input_shape=in_shape))
 
-    model.add(Conv2D(8, kernel_size=4, strides=1, padding="valid", kernel_initializer="glorot_normal",
+    model.add(Conv2D(8, kernel_size=5, strides=1, padding="valid", kernel_initializer="glorot_normal",
               bias_initializer="glorot_normal"))  # Glorot normal = Xavier
     model.add(Activation("relu"))
     model.add(MaxPool2D(pool_size=2, strides=2))
 
-    model.add(Conv2D(16, kernel_size=2, padding="valid",
+    model.add(Conv2D(16, kernel_size=3, padding="valid",
               kernel_initializer="glorot_normal", bias_initializer="glorot_normal"))
     model.add(Activation("relu"))
     model.add(MaxPool2D(pool_size=2, strides=2))
@@ -90,9 +90,12 @@ def save_ws(model: Sequential, output=str):
         print("//AUTO_GENERATED WITH get_params.py", file=f,
               end="\n//--------------------------------------------\n")
         print('\n#ifndef EXP_WIDTH\n#include <ap_fixed.h>\n\n#define EXP_WIDTH	16\n#define INT_WIDTH	4\n\ntypedef ap_fixed<EXP_WIDTH, INT_WIDTH> float24_t;\n\n#endif', file=f, end="")
+        print("\n#ifndef __WEIGHTS_H\n#define __WEIGHTS_H\n\n",file=f)
 
         for idx, layer in enumerate(model.layers):
             save_layer_ws(layer, idx, f)
+        
+        print("\n\n#endif",file=f)
 
         '''with open("D:\\Documenti\\Università\\Embedded\\CNN-using-HLS\\nnet_stream\\headers\\test_img.h", "r") as img:
             txt = img.read()

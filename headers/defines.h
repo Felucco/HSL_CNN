@@ -25,16 +25,16 @@
 #define IMAGE_SIZE 			32
 #define IMAGE_CHANNELS		1
 
-//First layer: 2D convolutional layer, 4x4, 8 filters, stride=1, padding valid. ReLu activation
-//Output shape: 29x29x8
+//First layer: 2D convolutional layer, 5x5, 8 filters, stride=1, padding valid. ReLu activation
+//Output shape: 28x28x8
 
-#define CONV1_KERNEL_SIZE 	4
+#define CONV1_KERNEL_SIZE 	5
 #define CONV1_CHANNELS 		1
 #define CONV1_FILTERS 		8
 #define CONV1_BIAS_SIZE 	8
 #define CONV1_STRIDE 		1
 
-#define A1_SIZE				29
+#define A1_SIZE				28
 #define A1_CHANNELS			8
 
 //Second layer: 2D MaxPool layer, 2x2
@@ -45,16 +45,16 @@
 #define P1_KERNEL_SIZE		2
 #define P1_STRIDE			2
 
-//Third layer: 2D convolutional layer, 2x2, 16 filters, stride=1, padding valid. ReLu activation
-//Output shape: 13x13x16
+//Third layer: 2D convolutional layer, 3x3, 16 filters, stride=1, padding valid. ReLu activation
+//Output shape: 12x12x16
 
-#define CONV2_KERNEL_SIZE 	2
+#define CONV2_KERNEL_SIZE 	3
 #define CONV2_CHANNELS 		8
 #define CONV2_FILTERS 		16
 #define CONV2_BIAS_SIZE		16
 #define CONV2_STRIDE 		1
 
-#define A2_SIZE				13
+#define A2_SIZE				12
 #define A2_CHANNELS			16
 
 //Fourth layer: 2D MaxPool layer, 2x2
