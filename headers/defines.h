@@ -19,6 +19,9 @@
  *******************************************************************************/
 
 
+#ifndef __DEFINES_H
+#define __DEFINES_H
+
 #define IMAGE_SIZE 			32
 #define IMAGE_CHANNELS		1
 
@@ -92,3 +95,4 @@
 
 
 
+#endif
