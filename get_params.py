@@ -9,8 +9,8 @@ from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.callbacks import ModelCheckpoint
 import numpy as np
 
-OUT_FILE = "headers/weights.h"
-REF_FILE = "out_refs.dat"
+WEIGHT_FILE = "headers/weights.h"
+REF_FOLDER = "refs"
 
 BATCH_SIZE = 128
 EPOCHS = 20
@@ -85,7 +85,7 @@ def save_layer_ws(layer: Layer, layer_index=int, w_file=IO):
 
 
 def save_ws(model: Sequential, output=str):
-    with open(OUT_FILE, "w") as f:
+    with open(WEIGHT_FILE, "w") as f:
 
         print("//AUTO_GENERATED WITH get_params.py", file=f,
               end="\n//--------------------------------------------\n")
@@ -98,32 +98,32 @@ def save_ws(model: Sequential, output=str):
             txt = img.read()
             print("\n\n"+txt, file=f)'''
 
-
 def get_exp_outputs(model: Sequential, tests: np.ndarray):
     pad_layer = model.get_layer(index=0)
     pad_model = Model(inputs = model.input, outputs = pad_layer.output)
-    conv_layer = model.get_layer(index=1)
-    conv_model = Model(inputs=conv_layer.input, outputs=model.get_layer(index=2).output) #Activation included
-    conv_out = open("conv_py.out","w")
-    pad_out = open("pad_py.out","w")
+
+    partial_models = {}
+    for layer_idx in layer_names.keys():
+        out_layer = model.get_layer(index=min(len(model.layers)-1,layer_idx+1))
+        part_model = Model(inputs=model.input, outputs=out_layer.output)
+        partial_models[layer_names[layer_idx]]=part_model
     
-    pads = pad_model.predict(tests)
-    convs = conv_model.predict(pads)
-
-    for pad,conv in zip(pads,convs):
-        pad_flat = np.array(pad).flatten()
-        for f in pad_flat[:-1]:
-            print(f,file=pad_out,end=" ")
-        print(pad_flat[-1],file=pad_out)
-
-        conv_flat = np.array(conv).flatten()
-        for d in conv_flat[:-1]:
-            print(d,file=conv_out, end=" ")
-        print(conv_flat[-1],file=conv_out)
+    for model_name, part_model in partial_models.items():
+        with open(f"{REF_FOLDER}/{model_name}_ref.dat","w") as out_f:
+            refs = part_model.predict(tests)
+            for ref in refs:
+                ref_flat = np.array(ref).flatten()
+                for r in ref_flat[:-1]:
+                    print(r,file=out_f, end=" ")
+                print(ref_flat[-1],file=out_f)
     
-    conv_out.close()
-    pad_out.close()
-
+    with open(f"{REF_FOLDER}/inputs_ref.dat","w") as out_f:
+        pads = pad_model.predict(tests)
+        for pad in pads:
+            pad_flat = np.array(pad).flatten()
+            for p in pad_flat[:-1]:
+                print(p,file=out_f, end=" ")
+            print(pad_flat[-1],file=out_f)
 
 def main():
     global model
@@ -139,8 +139,8 @@ def main():
         fit_model(model, X_train, y_train, X_test, y_test)
     model.load_weights("best_model_w")
     print(model.summary())
-    #save_ws(model)
-    # get_exp_outputs(model,X_test[:10])
+    save_ws(model)
+    get_exp_outputs(model,X_test[:10])
 
 
 if __name__ == "__main__":
