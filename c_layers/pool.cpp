@@ -21,11 +21,11 @@
 #include "pool.h"
 
 template<uint32_t IN_SHAPE_H, uint32_t IN_SHAPE_W, uint32_t IN_SHAPE_CH, uint8_t KERNEL_SIZE>
-void pool(float24_t out [IN_SHAPE_H/KERNEL_SIZE][IN_SHAPE_W/KERNEL_SIZE][IN_SHAPE_CH], float24_t in[IN_SHAPE_H][IN_SHAPE_W][IN_SHAPE_CH])
+void pool(float out [IN_SHAPE_H/KERNEL_SIZE][IN_SHAPE_W/KERNEL_SIZE][IN_SHAPE_CH], float in[IN_SHAPE_H][IN_SHAPE_W][IN_SHAPE_CH])
 {
 
 	uint16_t out_row,out_col,k_row,k_col,ch;
-	float24_t max_val, tmp_val;
+	float max_val, tmp_val;
 
 	pool_ch_for: for (ch = 0; ch < IN_SHAPE_CH; ch++)
 	{

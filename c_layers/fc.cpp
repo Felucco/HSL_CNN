@@ -26,9 +26,9 @@
 	Alla fine viene aggiunto ad ogni neurone il suo bias e viene computata l'attivazione
 */
 template<uint32_t IN_LEN, uint16_t NEURONS>
-void fc(float24_t out [NEURONS], float24_t in [IN_LEN], float24_t weight[IN_LEN][NEURONS], float24_t bias[NEURONS])
+void fc(float out [NEURONS], float in [IN_LEN], float weight[IN_LEN][NEURONS], float bias[NEURONS])
 {
-	float24_t sum, in_pos, neur;
+	float sum, in_pos, neur;
 
 	fc_neur_for:for (neur = 0; neur < NEURONS; neur++)
 	{
@@ -42,9 +42,9 @@ void fc(float24_t out [NEURONS], float24_t in [IN_LEN], float24_t weight[IN_LEN]
 }
 
 template<uint32_t IN_LEN, uint16_t NEURONS>
-void fc_norelu(float24_t out [NEURONS], float24_t in [IN_LEN], float24_t weight[IN_LEN][NEURONS], float24_t bias[NEURONS])
+void fc_norelu(float out [NEURONS], float in [IN_LEN], float weight[IN_LEN][NEURONS], float bias[NEURONS])
 {
-	float24_t sum, in_pos, neur;
+	float sum, in_pos, neur;
 
 	fc_neur_for:for (neur = 0; neur < NEURONS; neur++)
 	{

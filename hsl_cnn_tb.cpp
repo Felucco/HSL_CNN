@@ -4,7 +4,7 @@
 
 #define TEST_N 10
 
-void print_tensor(float24_t *tensor, int len){
+void print_tensor(float *tensor, int len){
     printf("[");
     for (size_t i = 0; i < len-1; i++)
     {
@@ -17,9 +17,9 @@ int main()
 {
     unsigned test,row,col,ch;
 
-    float24_t in_imgs [TEST_N][IMAGE_SIZE][IMAGE_SIZE][IMAGE_CHANNELS];
-    float24_t out_tensors [TEST_N][FC3_ACT_SIZE];
-    float24_t exp_tensors [TEST_N][FC3_ACT_SIZE];
+    float in_imgs [TEST_N][IMAGE_SIZE][IMAGE_SIZE][IMAGE_CHANNELS];
+    float out_tensors [TEST_N][FC3_ACT_SIZE];
+    float exp_tensors [TEST_N][FC3_ACT_SIZE];
 
     //Load input images
     FILE *img_file = fopen("inputs_ref.dat","r");
@@ -56,8 +56,5 @@ int main()
         printf("\nReal: ");
         print_tensor(out_tensors[test],FC3_ACT_SIZE);
         printf("\n\n");
-    }
-
-
-    
+    }  
 }

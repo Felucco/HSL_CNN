@@ -1,14 +1,14 @@
 #include "hls_cnn.h"
 
-void hls_cnn(float24_t in_image [IMAGE_SIZE][IMAGE_SIZE][IMAGE_CHANNELS], float24_t out_tensor [FC3_ACT_SIZE])
+void hls_cnn(float in_image [IMAGE_SIZE][IMAGE_SIZE][IMAGE_CHANNELS], float out_tensor [FC3_ACT_SIZE])
 {
-    float24_t conv1_out [A1_SIZE][A1_SIZE][A1_CHANNELS];
-    float24_t pool1_out [P1_SIZE][P1_SIZE][P1_CHANNELS];
-    float24_t conv2_out [A2_SIZE][A2_SIZE][A2_CHANNELS];
-    float24_t pool2_out [P2_SIZE][P2_SIZE][P2_CHANNELS];
-    float24_t flatten_out [FLATTEN_SIZE];
-    float24_t fc1_out [FC1_ACT_SIZE];
-    float24_t fc2_out [FC2_ACT_SIZE];
+    float conv1_out [A1_SIZE][A1_SIZE][A1_CHANNELS];
+    float pool1_out [P1_SIZE][P1_SIZE][P1_CHANNELS];
+    float conv2_out [A2_SIZE][A2_SIZE][A2_CHANNELS];
+    float pool2_out [P2_SIZE][P2_SIZE][P2_CHANNELS];
+    float flatten_out [FLATTEN_SIZE];
+    float fc1_out [FC1_ACT_SIZE];
+    float fc2_out [FC2_ACT_SIZE];
 
     conv<IMAGE_SIZE,IMAGE_SIZE,IMAGE_CHANNELS,CONV1_KERNEL_SIZE,CONV1_FILTERS>(conv1_out,in_image,conv_layer1_weights,conv_layer1_bias);
     pool<A1_SIZE,A1_SIZE,A1_CHANNELS,P1_KERNEL_SIZE>(pool1_out,conv1_out);

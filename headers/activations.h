@@ -18,6 +18,7 @@
  * Description: definition and implementation of activation functions
  *******************************************************************************/
 
+/*
 #ifndef EXP_WIDTH
 
 #include "ap_fixed.h"
@@ -28,16 +29,18 @@
 typedef ap_fixed<EXP_WIDTH, INT_WIDTH> float24_t;
 
 #endif
+*/
 
+#include <stdint.h>
 
 #ifndef __ACTIVATIONS_H
 #define __ACTIVATIONS_H
 
 
 
-float24_t relu(float24_t a)
+float relu(float a)
 {
-	return a > (float24_t)0 ? a : (float24_t)0;
+	return a > (float)0 ? a : (float)0;
 }
 
 #endif

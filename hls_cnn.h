@@ -7,4 +7,4 @@
 #include "c_layers/flatten.h"
 #include "c_layers/pool.h"
 
-void hls_cnn(float24_t in_image [IMAGE_SIZE][IMAGE_SIZE][IMAGE_CHANNELS], float24_t out_tensor [FC3_ACT_SIZE]);
+void hls_cnn(float in_image [IMAGE_SIZE][IMAGE_SIZE][IMAGE_CHANNELS], float out_tensor [FC3_ACT_SIZE]);
