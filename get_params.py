@@ -12,10 +12,12 @@ import numpy as np
 WEIGHT_FILE = "headers/weights.h"
 REF_FOLDER = "refs"
 
+NUM_TESTS = 10
+
 BATCH_SIZE = 128
 EPOCHS = 20
 LR = 0.009
-TRAIN = True
+TRAIN = False
 
 
 def build_model(in_shape: np.ndarray) -> Sequential:
@@ -116,17 +118,17 @@ def get_exp_outputs(model: Sequential, tests: np.ndarray):
             refs = part_model.predict(tests)
             for ref in refs:
                 ref_flat = np.array(ref).flatten()
-                for r in ref_flat[:-1]:
+                for r in ref_flat:
                     print(r,file=out_f, end=" ")
-                print(ref_flat[-1],file=out_f)
+                print("\n",file=out_f, end="")
     
     with open(f"{REF_FOLDER}/inputs_ref.dat","w") as out_f:
         pads = pad_model.predict(tests)
         for pad in pads:
             pad_flat = np.array(pad).flatten()
-            for p in pad_flat[:-1]:
+            for p in pad_flat:
                 print(p,file=out_f, end=" ")
-            print(pad_flat[-1],file=out_f)
+            print("\n",file=out_f, end="")
 
 def main():
     global model
@@ -142,8 +144,8 @@ def main():
         fit_model(model, X_train, y_train, X_test, y_test)
     model.load_weights("best_model_w")
     print(model.summary())
-    save_ws(model)
-    get_exp_outputs(model,X_test[:10])
+    #save_ws(model)
+    get_exp_outputs(model,X_test[:NUM_TESTS])
 
 
 if __name__ == "__main__":
