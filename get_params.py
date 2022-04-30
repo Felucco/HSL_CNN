@@ -19,6 +19,8 @@ EPOCHS = 20
 LR = 0.009
 TRAIN = False
 
+model = None
+
 
 def build_model(in_shape: np.ndarray) -> Sequential:
     model = Sequential()
@@ -146,6 +148,10 @@ def main():
     print(model.summary())
     #save_ws(model)
     get_exp_outputs(model,X_test[:NUM_TESTS])
+
+def get_model():
+	global model
+	return model
 
 
 if __name__ == "__main__":

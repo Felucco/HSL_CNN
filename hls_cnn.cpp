@@ -20,6 +20,6 @@ void hls_cnn(float in_image [IMAGE_SIZE][IMAGE_SIZE][IMAGE_CHANNELS], float out_
 
     fc<FLATTEN_SIZE,FC1_ACT_SIZE>(fc1_out,flatten_out,fc_layer1_weights,fc_layer1_bias);
     fc<FC1_ACT_SIZE,FC2_ACT_SIZE>(fc2_out,fc1_out,fc_layer2_weights,fc_layer2_bias);
-    fc<FC2_ACT_SIZE,FC3_ACT_SIZE>(out_tensor,fc2_out,fc_layer3_weights,fc_layer3_bias);
+    fc_norelu<FC2_ACT_SIZE,FC3_ACT_SIZE>(out_tensor,fc2_out,fc_layer3_weights,fc_layer3_bias);
 
 }
