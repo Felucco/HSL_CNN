@@ -1,5 +1,5 @@
 #ifndef __MAXPOOL
-#define __MAXPOLL
+#define __MAXPOOL
 
 #include "defines.h"
 #include "activations.h"
@@ -22,8 +22,10 @@ void pool(float out [IN_SHAPE_H/KERNEL_SIZE][IN_SHAPE_W/KERNEL_SIZE][IN_SHAPE_CH
 				max_val = in[out_row*KERNEL_SIZE][out_col*KERNEL_SIZE][ch];
 				pool_ker_row_for: for (k_row = 0; k_row < KERNEL_SIZE; k_row++)
 				{
+					#pragma HLS unroll factor=KERNEL_SIZE
 					pool_ker_col_for: for (k_col = 0; k_col < KERNEL_SIZE; k_col++)
 					{
+						#pragma HLS unroll factor=KERNEL_SIZE
 						tmp_val = in[out_row*KERNEL_SIZE+k_row][out_col*KERNEL_SIZE+k_col][ch];
 						max_val = tmp_val > max_val ? tmp_val : max_val;
 					}

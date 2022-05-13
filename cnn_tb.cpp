@@ -40,7 +40,7 @@ int main()
     float exp_tensors [TEST_N][OUT_NEURONS];
 
     //Load input images
-    FILE *img_file = fopen("refs/inputs_ref.dat","r");
+    FILE *img_file = fopen("inputs_ref.dat","r");
     if (img_file == NULL){
         printf("Could open input image file, aborting...");
         return -1;
@@ -63,7 +63,7 @@ int main()
 
     //Load expected outputs
     //printf("\n-------------Expected outputs:-------------\n");
-    FILE *exp_file = fopen("refs/fc_layer3_ref.dat","r");
+    FILE *exp_file = fopen("fc_layer3_ref.dat","r");
     if (exp_file == NULL){
         printf("Could open expected tensors file, aborting...");
         return -1;

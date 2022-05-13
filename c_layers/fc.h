@@ -5,6 +5,17 @@
 #include "activations.h"
 
 template<uint32_t IN_LEN, uint16_t NEURONS>
+float input_sum (float in [IN_LEN], float weight[IN_LEN][NEURONS], uint16_t neur){
+	float sum = 0;
+	uint32_t in_pos;
+	fc_input_for:for (in_pos = 0; in_pos<IN_LEN; in_pos++)
+	{
+		sum += in[in_pos]*weight[in_pos][neur];
+	}
+	return sum;
+}
+
+template<uint32_t IN_LEN, uint16_t NEURONS>
 void fc(float out [NEURONS], float in [IN_LEN], float weight[IN_LEN][NEURONS], float bias[NEURONS])
 {
 	float sum;
@@ -13,11 +24,8 @@ void fc(float out [NEURONS], float in [IN_LEN], float weight[IN_LEN][NEURONS], f
 
 	fc_neur_for:for (neur = 0; neur < NEURONS; neur++)
 	{
-		sum = 0;
-		fc_input_for:for (in_pos = 0; in_pos<IN_LEN; in_pos++)
-		{
-			sum += in[in_pos]*weight[in_pos][neur];
-		}
+		sum = input_sum<IN_LEN>(in, wight, neur);
+
 		out[neur]=relu(sum+bias[neur]);
 	}
 }
